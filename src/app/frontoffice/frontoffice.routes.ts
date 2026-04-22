@@ -29,6 +29,12 @@ export const FRONTOFFICE_ROUTES: Routes = [
         loadComponent: () =>
           import('./pages/category/category.component').then((m) => m.CategoryComponent),
       },
+      // --- TU NUEVA RUTA AQUÍ ---
+      {
+        path: 'explorar',
+        loadComponent: () =>
+          import('./pages/explore-all/explore-all').then((m) => m.ExploreAllComponent),
+      },
     ],
   },
 ];
