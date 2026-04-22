@@ -1,0 +1,19 @@
+<div class="explore-container">
+  <header class="page-header">
+    <h1>Galería de Contenidos</h1>
+    <p>Selecciona un área de interés para ver sus publicaciones relacionadas.</p>
+  </header>
+
+  <main class="gallery-grid-all">
+    
+    @for (item of allCategories(); track item.id) {
+      
+      <div class="category-card" 
+           [style.background]="item.gradient"
+           [routerLink]="['/categoria', item.name]"> <span class="icon">{{ item.icon }}</span>
+        <h3>{{ item.name }}</h3>
+        
+      </div>
+
+    } </main>
+</div>

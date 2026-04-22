@@ -35,6 +35,11 @@ export const FRONTOFFICE_ROUTES: Routes = [
         loadComponent: () =>
           import('./pages/explore-all/explore-all').then((m) => m.ExploreAllComponent),
       },
+      {
+        path: 'explorar-galeria',
+        loadComponent: () =>
+          import('./pages/explore-gallery/explore-gallery').then((m) => m.ExploreGalleryComponent),
+      },
     ],
   },
 ];
