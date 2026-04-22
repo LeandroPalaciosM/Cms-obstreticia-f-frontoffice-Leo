@@ -1,70 +1,119 @@
 .explore-container {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: 60px 20px;
+  padding: 20px 40px 80px;
+  // Añadimos este fondo suave para que toda la página respire igual que la galería
+  min-height: 100vh;
+}
 
-  .page-header {
-    text-align: center;
-    margin-bottom: 40px;
-
-    h1 {
-      font-size: 2.5rem;
-      color: #1a1a2e;
-      margin-bottom: 10px;
-    }
-
-    p {
-      color: #64748b;
-      font-size: 1.1rem;
-    }
+.top-nav {
+  padding: 20px 0;
+  .back-link {
+    color: #0056b3 !important;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.2s;
+    &:hover { opacity: 0.7; }
   }
 }
 
-.category-nav {
+.page-header {
+  text-align: center;
+  padding: 40px 0 30px;
+
+  h1 {
+    font-size: 3rem; 
+    color: #1a1a2e;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+  }
+
+  p {
+    color: #64748b;
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
+
+// BARRA DE HERRAMIENTAS (Igualita a la galería)
+.toolbar {
   display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 50px;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc; // El color exacto de fondo que querías
+  padding: 16px 24px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 40px;
 
-  button {
-    padding: 10px 24px;
-    border-radius: 30px;
-    border: 1px solid #e2e8f0;
-    background: white;
-    color: #475569;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  .search-box input {
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    width: 250px;
+    outline: none;
+    transition: border-color 0.2s;
+    &:focus { border-color: #3b82f6; }
+  }
 
-    &:hover {
-      border-color: #3a6fd8;
-      color: #3a6fd8;
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 15px; // Espacio entre los dos selects
+
+    .select-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      label { 
+        font-size: 14px; 
+        font-weight: 600; 
+        color: #475569; 
+      }
+
+      select {
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #cbd5e1;
+        background: white;
+        cursor: pointer;
+        font-size: 14px;
+        color: #1e293b;
+        outline: none;
+        
+        optgroup { font-weight: 700; color: #64748b; }
+      }
     }
+  }
 
-    &.active {
-      background: #3a6fd8;
-      color: white;
-      border-color: #3a6fd8;
-      box-shadow: 0 4px 12px rgba(58, 111, 216, 0.3);
-    }
+  .results-count { 
+    font-weight: 600; 
+    color: #3b82f6; 
+    font-size: 14px; 
   }
 }
 
 .articles-grid {
   display: grid;
-  // Esto hace que las cards se acomoden solas según el tamaño de pantalla
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 30px;
 }
 
-// Ajustes para móviles
+// Media query para que en celular no se amontone la toolbar
 @media (max-width: 768px) {
-  .explore-container {
-    padding: 30px 15px;
+  .toolbar {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
     
-    .page-header h1 {
-      font-size: 1.8rem;
-    }
+    .search-box input { width: 100%; }
+    .filter-group { flex-direction: column; }
   }
 }
