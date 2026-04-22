@@ -22,7 +22,10 @@
     <div class="filter-group">
       <div class="select-wrapper">
         <label for="cat-select">Categoría:</label>
-        <select id="cat-select" (change)="setCategory($any($event.target).value)">
+        <select 
+          id="cat-select" 
+          [value]="selectedCategory()"
+          (change)="setCategory($any($event.target).value)">
           @for (cat of categories; track cat) {
             <option [value]="cat">{{ cat }}</option>
           }
@@ -31,7 +34,10 @@
 
       <div class="select-wrapper">
         <label for="fecha-select">Ordenar:</label>
-        <select id="fecha-select" (change)="setDateFilter($any($event.target).value)">
+        <select 
+          id="fecha-select" 
+          [value]="selectedDateFilter()"
+          (change)="setDateFilter($any($event.target).value)">
           <option value="todas">Por defecto</option>
           <optgroup label="Cronología">
             <option value="recientes">Más recientes primero</option>

@@ -16,38 +16,35 @@ import { FormsModule } from '@angular/forms';
 export class ExploreAllComponent {
   private cmsService = inject(CmsService);
 
-  // Datos desde el servicio
   allArticles = toSignal(this.cmsService.getArticles(), { initialValue: [] });
   
-  // Signals de estado para los filtros
   selectedCategory = signal('Todos');
   selectedDateFilter = signal('todas');
   searchQuery = signal(''); 
 
-  // Lista de categorías (deben coincidir con lo que esperas de la API)
   categories = ['Todos', 'Investigación', 'Tecnología', 'Cultura', 'Eventos', 'Proyectos'];
 
-  // Lógica unificada de filtrado
   displayArticles = computed(() => {
     let filtered = [...this.allArticles()]; 
 
-    // 1. Filtro por Búsqueda (Título)
+    // 1. Filtro por Búsqueda
     const query = this.searchQuery().trim().toLowerCase();
     if (query) {
-      filtered = filtered.filter(a => 
-        a.title.toLowerCase().includes(query)
-      );
+      filtered = filtered.filter(a => a.title.toLowerCase().includes(query));
     }
 
-    // 2. Filtro por Categoría (Normalizado para evitar fallos por tildes/mayúsculas)
+    // 2. Filtro por Categoría (Súper compatible)
     const cat = this.selectedCategory();
     if (cat !== 'Todos') {
-      filtered = filtered.filter(a => 
-        a.category.toLowerCase() === cat.toLowerCase()
-      );
+      filtered = filtered.filter(a => {
+        // Normalizamos para ignorar tildes y mayúsculas
+        const articleCat = a.category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const targetCat = cat.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        return articleCat === targetCat;
+      });
     }
 
-    // 3. Lógica de Ordenamiento
+    // 3. Ordenamiento
     const sort = this.selectedDateFilter();
     switch (sort) {
       case 'recientes':
@@ -67,7 +64,6 @@ export class ExploreAllComponent {
     return filtered;
   });
 
-  // Métodos de actualización
   setCategory(cat: string) { 
     this.selectedCategory.set(cat); 
   }
